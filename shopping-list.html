@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping list example</title>
+    <style>
+      li {
+        margin-bottom: 10px;
+      }
+
+      li button {
+        font-size: 8px;
+        margin-left: 20px;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+
+    <h1>My shopping list</h1>
+
+    <div>
+      <label for="item">Enter a new item:</label>
+      <input type="text" name="item" id="item">
+      <button>Add item</button>
+    </div>
+
+    <ul>
+    </ul>
+
+    <script>
+    const shoppingList = document.querySelector('ul');
+    const newItem = document.querySelector('input');
+    const addToList = document.querySelector('button');
+
+    addToList.addEventListener('click', () => { addShoppingItem(newItem.value) });
+
+    function addShoppingItem(newItem) {
+        //add item to list
+        const shoppingItem = document.createElement('li');
+        shoppingList.appendChild(shoppingItem);
+
+        // add span and button next as children of list item
+        const listParent = document.querySelector('ul li:last-child');
+        const listSpan = document.createElement('span');
+        const deleteButton = document.createElement('button');
+        
+        listSpan.textContent = newItem;
+
+        deleteButton.textContent = 'Delete';
+        deleteButton.setAttribute('id','deleteButton');
+        deleteButton.onclick = () => { listParent.remove() };        
+
+        listParent.appendChild(listSpan);
+        listParent.appendChild(deleteButton);
+
+        //clear input field and set focus (cannot use variable name to select the 
+        //elements for some reason; had to use full name)
+        document.querySelector('input').value = '';
+        document.querySelector('input').focus();
+    };
+
+    </script>
+  </body>
+</html>
